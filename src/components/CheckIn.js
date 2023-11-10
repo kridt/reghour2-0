@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { database } from "../firebase";
 
 export default function CheckIn({ id }) {
   console.log(id);
+  const [todaysCheckIn, setTodaysCheckIn] = React.useState(null);
+
+  useEffect(() => {
+    fetch("https://reghour-express.vercel.app/api/getDagensKode")
+      .then((res) => res.json())
+      .then((data) => {
+        setTodaysCheckIn(data.dagensKode);
+      });
+  }, []);
 
   function handleCheckIn() {
     var options = {
@@ -30,7 +39,7 @@ export default function CheckIn({ id }) {
         .collection("users")
         .doc(id)
         .collection("nystempling")
-        .doc(realCode)
+        .doc(todaysCheckIn)
         .set(options);
     });
   }
