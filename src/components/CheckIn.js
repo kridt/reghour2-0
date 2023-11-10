@@ -11,6 +11,8 @@ export default function CheckIn({ id }) {
       .then((data) => {
         setTodaysCheckIn(data.dagensKode);
       });
+
+    console.log(todaysCheckIn);
   }, []);
 
   function handleCheckIn() {
