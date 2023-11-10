@@ -5,16 +5,6 @@ export default function CheckIn({ id }) {
   console.log(id);
   const [todaysCheckIn, setTodaysCheckIn] = React.useState(null);
 
-  useEffect(() => {
-    fetch("https://reghour-express.vercel.app/api/getDagensKode")
-      .then((res) => res.json())
-      .then((data) => {
-        setTodaysCheckIn(data.dagensKode);
-      });
-
-    console.log(todaysCheckIn);
-  }, []);
-
   function handleCheckIn() {
     var options = {
       checkIn: new Date().toLocaleDateString().replaceAll(".", "-"),
@@ -37,12 +27,16 @@ export default function CheckIn({ id }) {
       options.location.lng = position.coords.longitude;
       console.log(options.location.lat, options.location.lng);
 
-      database
-        .collection("users")
-        .doc(id)
-        .collection("nystempling")
-        .doc(todaysCheckIn)
-        .set(options);
+      fetch("https://reghour-express.vercel.app/api/getDagensKode")
+        .then((res) => res.json())
+        .then((data) => {
+          database
+            .collection("users")
+            .doc(id)
+            .collection("tester")
+            .doc(data.dagensKode)
+            .set(options);
+        });
     });
   }
 
