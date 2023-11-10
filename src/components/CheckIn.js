@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { database } from "../firebase";
 
 export default function CheckIn({ id }) {
   console.log(id);
   const [todaysCheckIn, setTodaysCheckIn] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
   function handleCheckIn() {
+    setLoading(true);
     var options = {
-      checkIn: new Date().toLocaleDateString().replaceAll(".", "-"),
+      checkIn: {
+        time: new Date().toLocaleTimeString(),
+        checkInDate: new Date().toLocaleDateString().replaceAll(".", "-"),
+      },
+      checkOut: null,
       location: {
         lat: 0,
         lng: 0,
@@ -36,9 +42,37 @@ export default function CheckIn({ id }) {
             .collection("tester")
             .doc(data.dagensKode)
             .set(options);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     });
   }
 
-  return <button onClick={() => handleCheckIn()}>Stemple Ind</button>;
+  return (
+    <>
+      <div>
+        {loading ? (
+          <div
+            style={{
+              width: "100vw",
+              height: "100vh",
+              position: "fixed",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: "rgba(0,0,0,0.5)",
+            }}
+          >
+            Loading...
+          </div>
+        ) : (
+          <div>
+            <button onClick={() => handleCheckIn()}>Stemple Ind</button>
+          </div>
+        )}
+      </div>
+    </>
+  );
 }
