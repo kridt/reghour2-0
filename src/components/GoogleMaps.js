@@ -17,7 +17,7 @@ class GoogleMap extends Component {
           lat: latitude,
           lng: longitude,
         }}
-      >
+      > 
         <Marker
           position={{
             lat: latitude,
