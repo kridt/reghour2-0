@@ -42,6 +42,7 @@ export default function CheckIn({ id }) {
           headers: {
             "access-control-allow-origin": "*", // eller udelad denne linje helt
             AcecssOrigin: "https://firebase-express.vercel.app",
+            "no-cors": "true", // eller udelad denne linje helt
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
