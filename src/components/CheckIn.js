@@ -8,6 +8,11 @@ export default function CheckIn({ id }) {
   const [loading, setLoading] = React.useState(false);
 
   function handleCheckIn() {
+    const data = {
+      uid: "5wLPctIE9lc8vU7ELNAIw6kevZE2",
+      name: "test",
+      time: "test",
+    };
     setLoading(true);
     try {
       /* fetch(
