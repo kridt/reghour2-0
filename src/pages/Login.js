@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext, useAuth } from "../context/AuthContext";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -12,11 +12,8 @@ export default function Login() {
     if (currentUser) {
       navigate("/dashboard");
     }
-
-    /*  fetch("https://reghour-express.vercel.app/api/getDagensKode")
-      .then((res) => res.json())
-      .then((data) => console.log(data)); */
-  }, []);
+    console.log(error);
+  }, [currentUser, error, navigate]);
 
   async function handleSubmit(data) {
     const { email, password } = data.target.elements;
@@ -28,6 +25,7 @@ export default function Login() {
       navigate("/dashboard");
     } catch (error) {
       setError("Noget gik galt");
+      console.log(error);
     }
   }
 
