@@ -30,18 +30,21 @@ export default function CheckIn({ id }) {
           console.log(data);
         }); */
 
-      axios
-        .post(
-          "https://firebase-express.vercel.app/api/checkin/5wLPctIE9lc8vU7ELNAIw6kevZE2",
-          {
-            uid: "0",
-            name: "test",
-            time: "test",
-          }
-        )
-        .then((res) => {
+      fetch(
+        "https://firebase-express.vercel.app/api/checkin/5wLPctIE9lc8vU7ELNAIw6kevZE2",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+          credentials: "omit", // eller udelad denne linje helt
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
           setLoading(false);
-          console.log(res);
+          console.log(data);
         });
     } catch (error) {
       alert(error);
