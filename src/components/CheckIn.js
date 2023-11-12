@@ -46,13 +46,16 @@ export default function CheckIn({ id }) {
           credentials: "omit", // eller udelad denne linje helt
         }
       )
-        .then((res) => res.json())
+        .then((res) => {
+          console.log("efter fetch");
+          return res.json();
+        })
         .then((data) => {
           setLoading(false);
-          console.log(data);
+          console.log("data fra server", data);
         });
     } catch (error) {
-      alert(error);
+      alert("fejl", error);
     }
     /* var options = {
       checkIn: {
