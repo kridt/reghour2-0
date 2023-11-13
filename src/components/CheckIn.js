@@ -9,7 +9,7 @@ export default function CheckIn({ id }) {
 
   function handleCheckIn() {
     const data = {
-      uid: "5wLPctIE9lc8vU7ELNAIw6kevZE2",
+      uid: id,
       name: "test",
       time: "test",
     };
@@ -35,20 +35,13 @@ export default function CheckIn({ id }) {
           console.log(data);
         }); */
 
-      fetch(
-        "https://firebase-express.vercel.app/api/checkin/5wLPctIE9lc8vU7ELNAIw6kevZE2",
-        {
-          method: "POST",
-          headers: {
-            "access-control-allow-origin": "*", // eller udelad denne linje helt
-            AcecssOrigin: "https://firebase-express.vercel.app",
-            "no-cors": "true", // eller udelad denne linje helt
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-          credentials: "omit", // eller udelad denne linje helt
-        }
-      )
+      fetch(`https://reg-hour-firebase.netlify.app/api/checkin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
         .then((res) => {
           console.log("efter fetch");
           return res.json();
